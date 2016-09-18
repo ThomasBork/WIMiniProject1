@@ -20,6 +20,7 @@ namespace WebCrawler
         private readonly long pageCap;
         public readonly string domain;
         private readonly List<string> disallowed;
+        private bool shouldStop = false;
 
         private Thread crawlerThread;
 
@@ -35,30 +36,34 @@ namespace WebCrawler
             this.pageCap = pageCap;
             this.domain = new Uri(startPage).Host;
             this.disallowed = RobotsParser.Parse("http://" + domain + "/robots.txt");
-            if (ShouldAddressBeEnqueued(startPage))
-            {
-                urlsToCrawl.Enqueue(startPage);
-            }
+            
+            EnqueueAddressOnce(address);
 
             crawlerThread = new Thread(Crawl);
         }
 
-        private bool ShouldAddressBeEnqueued(string address)
+        private void EnqueueAddressOnce(string address)
         {
-            return (address.StartsWith("http://"+domain) &&
+            Monitor.Enter(urlsToCrawlMutex);
+            if (address.StartsWith("http://"+domain) &&
                 !urlsToCrawl.Contains(address) &&
                 !results.ContainsKey(address) &&
-                disallowed.TrueForAll(x => !address.StartsWith("http://"+domain+x)));
+                disallowed.TrueForAll(x => !address.StartsWith("http://"+domain+x)))
+            {
+                urlsToCrawl.Enqueue(address);
+            }
+            Monitor.Exit(urlsToCrawlMutex);
         }
 
         private void Crawl()
         {
             using (WebClient client = new WebClient())
             {
-                for (int i = 0; i < pageCap; i++)
+                while(true)
                 {
-                    if (urlsToCrawl.Count < 1)
+                    if (urlsToCrawl.Count < 1 || shouldStop)
                     {
+                        ShareResults();
                         return;
                     }
 
@@ -97,16 +102,12 @@ namespace WebCrawler
                                 urlToAdd = href;
                             }
 
-                            Monitor.Enter(urlsToCrawlMutex);
-                            if (ShouldAddressBeEnqueued(urlToAdd))
-                            {
-                                urlsToCrawl.Enqueue(urlToAdd);
-                            }
-                            else if (!urlToAdd.StartsWith("http://" + domain))
+                            EnqueueAddressOnce(urlToAdd);
+
+                            if (!urlToAdd.StartsWith("http://" + domain))
                             {
                                 Program.newDomains.Enqueue(urlToAdd);
                             }
-                            Monitor.Exit(urlsToCrawlMutex);
 
                         }
 
@@ -123,7 +124,14 @@ namespace WebCrawler
                         //Console.WriteLine("Exception found at " + url + " with the message " + e);
                     }
                 }
-                this.Stop();
+            }
+        }
+
+        private void ShareResults()
+        {
+            foreach (KeyValuePair<string, string> kvp in results)
+            {
+                while (!Program.combinedResults.TryAdd(kvp.Key, kvp.Value));
             }
         }
 
@@ -134,22 +142,17 @@ namespace WebCrawler
 
         public void Stop()
         {
-            crawlerThread.Abort();
-
-            foreach (KeyValuePair<string, string> kvp in results)
-            {
-                while (!Program.combinedResults.TryAdd(kvp.Key, kvp.Value)) ;
-            }
+            shouldStop = true;
         }
 
         public void AddHref(string href)
         {
-            Monitor.Enter(urlsToCrawlMutex);
-            if (ShouldAddressBeEnqueued(href))
+            EnqueueAddressOnce(href);
+            if (!crawlerThread.isAlive)
             {
-                urlsToCrawl.Enqueue(href);
+                shouldStop = false;
+                crawlerThread.Start();
             }
-            Monitor.Exit(urlsToCrawlMutex);
         }
     }
 }
