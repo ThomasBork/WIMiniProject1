@@ -12,3 +12,11 @@ C:\Users\Ida\documents\visual studio 2015\Projects\JaccardSim\JaccardSim\bin\Deb
 D:\Uni\SW7\Web Intelligence\Miniprojekt 1\Crawler\WIMiniProject1\JaccardSim\JaccardSim\bin\Debug\JaccardSim.exe.config
 D:\Uni\SW7\Web Intelligence\Miniprojekt 1\Crawler\WIMiniProject1\JaccardSim\JaccardSim\obj\Debug\JaccardSim.exe
 D:\Uni\SW7\Web Intelligence\Miniprojekt 1\Crawler\WIMiniProject1\JaccardSim\JaccardSim\obj\Debug\JaccardSim.pdb
+D:\Uni\SW7\Web Intelligence\Miniprojekt 1\Crawler\WIMiniProject1\JaccardSim\JaccardSim\bin\Debug\JaccardSim.exe
+D:\Uni\SW7\Web Intelligence\Miniprojekt 1\Crawler\WIMiniProject1\JaccardSim\JaccardSim\bin\Debug\JaccardSim.pdb
+D:\Uni\SW7\Web Intelligence\Miniprojekt 1\Crawler\WIMiniProject1\JaccardSim\JaccardSim\bin\Debug\HtmlAgilityPack.dll
+D:\Uni\SW7\Web Intelligence\Miniprojekt 1\Crawler\WIMiniProject1\JaccardSim\JaccardSim\bin\Debug\HtmlAgilityPack.pdb
+D:\Uni\SW7\Web Intelligence\Miniprojekt 1\Crawler\WIMiniProject1\JaccardSim\JaccardSim\bin\Debug\HtmlAgilityPack.xml
+D:\Uni\SW7\Web Intelligence\Miniprojekt 1\Crawler\WIMiniProject1\JaccardSim\JaccardSim\obj\Debug\WebCrawler.csprojResolveAssemblyReference.cache
+D:\Uni\SW7\Web Intelligence\Miniprojekt 1\Crawler\WIMiniProject1\JaccardSim\JaccardSim\obj\Debug\JaccardSim.Properties.Resources.resources
+D:\Uni\SW7\Web Intelligence\Miniprojekt 1\Crawler\WIMiniProject1\JaccardSim\JaccardSim\obj\Debug\WebCrawler.csproj.GenerateResource.Cache

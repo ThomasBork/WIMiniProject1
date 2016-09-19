@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Net;
+using System.Net.Http;
 
 namespace WebCrawler
 {
@@ -17,6 +18,7 @@ namespace WebCrawler
             string robots = "placeholder";
             using (WebClient client = new WebClient())
             {
+                client.Headers.Add(HttpRequestHeader.UserAgent, USER_AGENT_NAME);
                 try
                 {
                     robots = client.DownloadString(uri);

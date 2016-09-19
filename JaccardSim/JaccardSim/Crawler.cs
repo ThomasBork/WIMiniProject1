@@ -35,7 +35,6 @@ namespace WebCrawler
             this.pageCap = pageCap;
             this.domain = new Uri(startPage).Host;
             this.disallowed = RobotsParser.Parse("http://" + domain + "/robots.txt");
-
             if (ShouldAddressBeEnqueued(startPage))
             {
                 urlsToCrawl.Enqueue(startPage);
