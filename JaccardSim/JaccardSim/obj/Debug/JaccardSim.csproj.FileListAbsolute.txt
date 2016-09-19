@@ -1,0 +1,8 @@
+c:\users\ida\documents\visual studio 2015\Projects\JaccardSim\JaccardSim\bin\Debug\JaccardSim.exe.config
+c:\users\ida\documents\visual studio 2015\Projects\JaccardSim\JaccardSim\bin\Debug\JaccardSim.exe
+c:\users\ida\documents\visual studio 2015\Projects\JaccardSim\JaccardSim\bin\Debug\JaccardSim.pdb
+c:\users\ida\documents\visual studio 2015\Projects\JaccardSim\JaccardSim\obj\Debug\JaccardSim.csprojResolveAssemblyReference.cache
+c:\users\ida\documents\visual studio 2015\Projects\JaccardSim\JaccardSim\obj\Debug\JaccardSim.Properties.Resources.resources
+c:\users\ida\documents\visual studio 2015\Projects\JaccardSim\JaccardSim\obj\Debug\JaccardSim.csproj.GenerateResource.Cache
+c:\users\ida\documents\visual studio 2015\Projects\JaccardSim\JaccardSim\obj\Debug\JaccardSim.exe
+c:\users\ida\documents\visual studio 2015\Projects\JaccardSim\JaccardSim\obj\Debug\JaccardSim.pdb

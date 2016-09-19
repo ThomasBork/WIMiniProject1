@@ -1,0 +1,11 @@
+C:\Users\Ida\documents\visual studio 2015\Projects\JaccardSim\JaccardSim\bin\Debug\JaccardSim.exe.config
+C:\Users\Ida\documents\visual studio 2015\Projects\JaccardSim\JaccardSim\obj\Debug\JaccardSim.exe
+C:\Users\Ida\documents\visual studio 2015\Projects\JaccardSim\JaccardSim\obj\Debug\JaccardSim.pdb
+C:\Users\Ida\documents\visual studio 2015\Projects\JaccardSim\JaccardSim\bin\Debug\JaccardSim.exe
+C:\Users\Ida\documents\visual studio 2015\Projects\JaccardSim\JaccardSim\bin\Debug\JaccardSim.pdb
+C:\Users\Ida\documents\visual studio 2015\Projects\JaccardSim\JaccardSim\obj\Debug\JaccardSim.Properties.Resources.resources
+C:\Users\Ida\documents\visual studio 2015\Projects\JaccardSim\JaccardSim\obj\Debug\WebCrawler.csproj.GenerateResource.Cache
+C:\Users\Ida\documents\visual studio 2015\Projects\JaccardSim\JaccardSim\obj\Debug\WebCrawler.csprojResolveAssemblyReference.cache
+C:\Users\Ida\documents\visual studio 2015\Projects\JaccardSim\JaccardSim\bin\Debug\HtmlAgilityPack.dll
+C:\Users\Ida\documents\visual studio 2015\Projects\JaccardSim\JaccardSim\bin\Debug\HtmlAgilityPack.pdb
+C:\Users\Ida\documents\visual studio 2015\Projects\JaccardSim\JaccardSim\bin\Debug\HtmlAgilityPack.xml
