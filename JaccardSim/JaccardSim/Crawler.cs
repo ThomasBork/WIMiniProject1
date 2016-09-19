@@ -36,7 +36,7 @@ namespace WebCrawler
             this.domain = new Uri(startPage).Host;
             this.disallowed = RobotsParser.Parse("http://" + domain + "/robots.txt");
 
-            if (shouldAddressBeQueued(startPage))
+            if (ShouldAddressBeEnqueued(startPage))
             {
                 urlsToCrawl.Enqueue(startPage);
             }
@@ -44,7 +44,7 @@ namespace WebCrawler
             crawlerThread = new Thread(Crawl);
         }
 
-        private bool shouldAddressBeQueued(string address)
+        private bool ShouldAddressBeEnqueued(string address)
         {
             return (address.StartsWith("http://"+domain) &&
                 !urlsToCrawl.Contains(address) &&
@@ -99,7 +99,7 @@ namespace WebCrawler
                             }
 
                             Monitor.Enter(urlsToCrawlMutex);
-                            if (shouldAddressBeQueued(urlToAdd))
+                            if (ShouldAddressBeEnqueued(urlToAdd))
                             {
                                 urlsToCrawl.Enqueue(urlToAdd);
                             }
@@ -146,7 +146,7 @@ namespace WebCrawler
         public void AddHref(string href)
         {
             Monitor.Enter(urlsToCrawlMutex);
-            if (shouldAddressBeQueued(href))
+            if (ShouldAddressBeEnqueued(href))
             {
                 urlsToCrawl.Enqueue(href);
             }

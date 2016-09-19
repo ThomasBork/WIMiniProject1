@@ -9,3 +9,6 @@ C:\Users\Ida\documents\visual studio 2015\Projects\JaccardSim\JaccardSim\obj\Deb
 C:\Users\Ida\documents\visual studio 2015\Projects\JaccardSim\JaccardSim\bin\Debug\HtmlAgilityPack.dll
 C:\Users\Ida\documents\visual studio 2015\Projects\JaccardSim\JaccardSim\bin\Debug\HtmlAgilityPack.pdb
 C:\Users\Ida\documents\visual studio 2015\Projects\JaccardSim\JaccardSim\bin\Debug\HtmlAgilityPack.xml
+D:\Uni\SW7\Web Intelligence\Miniprojekt 1\Crawler\WIMiniProject1\JaccardSim\JaccardSim\bin\Debug\JaccardSim.exe.config
+D:\Uni\SW7\Web Intelligence\Miniprojekt 1\Crawler\WIMiniProject1\JaccardSim\JaccardSim\obj\Debug\JaccardSim.exe
+D:\Uni\SW7\Web Intelligence\Miniprojekt 1\Crawler\WIMiniProject1\JaccardSim\JaccardSim\obj\Debug\JaccardSim.pdb
