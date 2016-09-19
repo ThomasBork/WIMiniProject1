@@ -8,6 +8,10 @@ using System.Threading.Tasks;
 using System.Xml;
 using HtmlAgilityPack;
 using System.Threading;
+using JaccardSim.Models;
+using System.Data.Odbc;
+using System.Data.SqlClient;
+using System.Data;
 
 namespace WebCrawler
 {
@@ -67,16 +71,31 @@ namespace WebCrawler
                         return;
                     }
 
-                    var url = urlsToCrawl.Dequeue();
+                    var url = urlsToCrawl.Peek();
 
                     try
                     {
                         var html = client.DownloadString(url);
                         results.Add(url, html);
+                        urlsToCrawl.Dequeue();
 
                         var htmlDocument = new HtmlDocument();
 
                         htmlDocument.LoadHtml(html);
+                        
+                        using (SqlConnection myConnection = new SqlConnection())
+                        {
+                            string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=D:\Uni\SW7\Web Intelligence\Miniprojekt 1\Crawler\WIMiniProject1\JaccardSim\JaccardSim\DocumentDatabase.mdf;Integrated Security=True;";
+
+                            myConnection.ConnectionString = connectionString;
+                            myConnection.Open();
+                            
+                            SqlDataAdapter myDataAdapter = new SqlDataAdapter("INSERT INTO Documents (Text, Url) VALUES (" + "@html" + ", " + "@url" + ")", myConnection);
+
+                            myDataAdapter.SelectCommand.Parameters.AddWithValue("@html", html);
+                            myDataAdapter.SelectCommand.Parameters.AddWithValue("@url", url);
+                            myDataAdapter.SelectCommand.ExecuteNonQuery();
+                        }
 
                         var hrefs = htmlDocument.DocumentNode.SelectNodes("//a/@href");
                         if (hrefs == null)
@@ -86,7 +105,7 @@ namespace WebCrawler
                         foreach (HtmlNode node in hrefs)
                         {
                             string href = node.GetAttributeValue("href", "#");
-                            if (href.Length < 1 || href[0] == '#')
+                            if (href.Length < 1 || href[0] == '#' || href.StartsWith("mailto:"))
                             {
                                 continue;
                             }
@@ -108,7 +127,6 @@ namespace WebCrawler
                             {
                                 Program.newDomains.Enqueue(urlToAdd);
                             }
-
                         }
 
                         Monitor.Enter(Program.countMutex);
@@ -117,6 +135,7 @@ namespace WebCrawler
                     }
                     catch (WebException)
                     {
+                        urlsToCrawl.Dequeue();
                         //not much to do here
                         //Console.WriteLine("Exception found at " + url + " with the message " + e);
                     }

@@ -20,3 +20,5 @@ D:\Uni\SW7\Web Intelligence\Miniprojekt 1\Crawler\WIMiniProject1\JaccardSim\Jacc
 D:\Uni\SW7\Web Intelligence\Miniprojekt 1\Crawler\WIMiniProject1\JaccardSim\JaccardSim\obj\Debug\WebCrawler.csprojResolveAssemblyReference.cache
 D:\Uni\SW7\Web Intelligence\Miniprojekt 1\Crawler\WIMiniProject1\JaccardSim\JaccardSim\obj\Debug\JaccardSim.Properties.Resources.resources
 D:\Uni\SW7\Web Intelligence\Miniprojekt 1\Crawler\WIMiniProject1\JaccardSim\JaccardSim\obj\Debug\WebCrawler.csproj.GenerateResource.Cache
+D:\Uni\SW7\Web Intelligence\Miniprojekt 1\Crawler\WIMiniProject1\JaccardSim\JaccardSim\bin\Debug\DocumentDatabase.mdf
+D:\Uni\SW7\Web Intelligence\Miniprojekt 1\Crawler\WIMiniProject1\JaccardSim\JaccardSim\bin\Debug\DocumentDatabase_log.ldf
