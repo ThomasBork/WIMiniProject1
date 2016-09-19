@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WebCrawler;
 
 namespace JaccardSim.Models
 {
@@ -23,17 +24,13 @@ namespace JaccardSim.Models
             this.Content = content;
             this.Info = new List<TokenInfo>();
         }
-        private void Normalize(Porter2 stemmer)
-        {
-            Content = stemmer.stem(Content);
-        }
 
         public static void Tokenize (string text, Document doc)
         {
             var wordArray = text.Split(' ');
             for(int i = 0; i < wordArray.Length; i++)
             {
-                var word = wordArray[i];
+                var word = Program.Stemmer.stem(wordArray[i]);
                 var token = Tokens.FirstOrDefault(x => x.Content == word);
                 if (token != null)
                 {

@@ -37,7 +37,7 @@ namespace WebCrawler
             this.domain = new Uri(startPage).Host;
             this.disallowed = RobotsParser.Parse("http://" + domain + "/robots.txt");
             
-            EnqueueAddressOnce(address);
+            EnqueueAddressOnce(startPage);
 
             crawlerThread = new Thread(Crawl);
         }
@@ -114,9 +114,6 @@ namespace WebCrawler
                         Monitor.Enter(Program.countMutex);
                         Program.count++;
                         Monitor.Exit(Program.countMutex);
-
-                        Console.WriteLine(Program.count + ": Crawler " + id + "/" + idCount + " crawled page " + i + ": " + url + " \nCurrent queuelength: " + urlsToCrawl.Count);
-
                     }
                     catch (WebException)
                     {
@@ -131,7 +128,7 @@ namespace WebCrawler
         {
             foreach (KeyValuePair<string, string> kvp in results)
             {
-                while (!Program.combinedResults.TryAdd(kvp.Key, kvp.Value));
+                Program.combinedResults.TryAdd(kvp.Key, kvp.Value);
             }
         }
 
@@ -148,9 +145,10 @@ namespace WebCrawler
         public void AddHref(string href)
         {
             EnqueueAddressOnce(href);
-            if (!crawlerThread.isAlive)
+            if (!crawlerThread.IsAlive)
             {
                 shouldStop = false;
+                crawlerThread = new Thread(Crawl);
                 crawlerThread.Start();
             }
         }

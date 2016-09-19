@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JaccardSim.Libs;
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,14 +24,19 @@ namespace WebCrawler
 
         public static ConcurrentDictionary<string,string> combinedResults = new ConcurrentDictionary<string,string>();
         public static ConcurrentQueue<string> newDomains = new ConcurrentQueue<string>();
-        public static ConcurrentDictionary<string, Crawler> crawlers = new ConcurrentDictionary<string, Crawler>();
+        public static Dictionary<string, Crawler> crawlers = new Dictionary<string, Crawler>();
+
+
+        public static Porter2 Stemmer { get; set; }
 
         [STAThread]
         static void Main()
         {
             Thread crawlerManagerThread = new Thread(newDomainListening);
+            crawlerManagerThread.Priority = ThreadPriority.Highest;
             crawlerManagerThread.Start();
             newDomains.Enqueue(start);
+            Program.Stemmer = new Porter2();
         }
 
         static void newDomainListening()
@@ -42,15 +48,16 @@ namespace WebCrawler
                     string uri;
                     if (newDomains.TryDequeue(out uri))
                     {
-                        if (crawlers.ContainsKey(new Uri(uri).Host))
+                        var dictionaryKey = new Uri(uri).Host;
+                        if (crawlers.ContainsKey(dictionaryKey))
                         {
-                            Crawler existingCrawler;
-                            while (!crawlers.TryGetValue(uri, out existingCrawler)) ;
+                            Crawler existingCrawler = crawlers[dictionaryKey];
                             existingCrawler.AddHref(uri);
                         }
                         else
                         {
                             Crawler newCrawler = new Crawler(uri, indexSize);
+                            crawlers.Add(dictionaryKey, newCrawler);
                             newCrawler.Start();
                         }
                     }
