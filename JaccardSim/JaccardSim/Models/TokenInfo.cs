@@ -10,10 +10,11 @@ namespace JaccardSim.Models
     {
         public Document Document { get; set; }
         public int Position { get; set; }
-        public TokenInfo(Document doc, int pos)
+        public int Frequency { get; set; }
+        public TokenInfo(Document doc)
         {
             this.Document = doc;
-            this.Position = pos;
+            Frequency = 0;
         }
     }
 }

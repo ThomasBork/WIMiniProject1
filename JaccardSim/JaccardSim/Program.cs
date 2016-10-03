@@ -1,4 +1,5 @@
-﻿using JaccardSim.Libs;
+﻿using JaccardSim.Controllers;
+using JaccardSim.Libs;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -17,7 +18,7 @@ namespace WebCrawler
         /// 
 
         static string start = "http://inktank.fi/the-17-most-wonderfully-weird-websites-on-the-internet/";
-        static readonly long indexSize = 100;
+        static readonly long indexSize = 1000;
 
         public static object countMutex = new object();
         public static int count = 0;
@@ -32,11 +33,21 @@ namespace WebCrawler
         [STAThread]
         static void Main()
         {
+            Index();
+        }
+
+        static void Index()
+        {
+            Program.Stemmer = new Porter2();
+            IndexController.Index();
+        }
+
+        static void Crawl()
+        {
             Thread crawlerManagerThread = new Thread(newDomainListening);
             crawlerManagerThread.Priority = ThreadPriority.Highest;
             crawlerManagerThread.Start();
             newDomains.Enqueue(start);
-            Program.Stemmer = new Porter2();
         }
 
         static void newDomainListening()

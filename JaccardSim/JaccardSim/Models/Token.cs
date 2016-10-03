@@ -29,20 +29,27 @@ namespace JaccardSim.Models
 
         public static void Tokenize (Document doc)
         {
-            Monitor.Enter(tokenizeLock);
-            var wordArray = doc.Text.Split(' ');
+            var wordArray = doc.ModifiedText.Split(' ');
             for(int i = 0; i < wordArray.Length; i++)
             {
-                var word = Program.Stemmer.stem(wordArray[i]);
+                string word = wordArray[i];
+                try { word = Program.Stemmer.stem(wordArray[i]); }
+                catch (Exception e) {  }
+
                 var token = Tokens.FirstOrDefault(x => x.Content == word);
                 if (token == null)
                 {
                     token = new Token(word);
                     Tokens.Add(token);
                 }
-                token.Info.Add(new TokenInfo(doc, i));
+                var tokenInfo = token.Info.FirstOrDefault(x => x.Document == doc);
+                if(tokenInfo == null)
+                {
+                    tokenInfo = new TokenInfo(doc);
+                    token.Info.Add(tokenInfo);
+                }
+                tokenInfo.Frequency++;
             }
-            Monitor.Exit(tokenizeLock);
         }
     }
 }
