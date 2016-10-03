@@ -17,7 +17,7 @@ namespace JaccardSim.Models
             set {  _tokens = value; }
         }
 
-        public string Content { get; set; }
+        public string Word { get; set; }
         public List<TokenOccurance> TokenOccurances { get; set; }
 
         public int ID { get; set; }
@@ -25,14 +25,14 @@ namespace JaccardSim.Models
 
         public Token(string content)
         {
-            this.Content = content;
+            this.Word = content;
             this.TokenOccurances = new List<TokenOccurance>();
         }
 
         public Token(int id, string word, int frequency)
         {
             this.ID = id;
-            this.Content = word;
+            this.Word = word;
             this.Frequency = frequency;
             this.TokenOccurances = new List<TokenOccurance>();
         }
@@ -46,7 +46,7 @@ namespace JaccardSim.Models
                 try { word = Program.Stemmer.stem(wordArray[i]); }
                 catch (Exception e) {  }
 
-                var token = Tokens.FirstOrDefault(x => x.Content == word);
+                var token = Tokens.FirstOrDefault(x => x.Word == word);
                 if (token == null)
                 {
                     token = new Token(word);

@@ -67,6 +67,7 @@
   <ItemGroup>
     <Compile Include="Comparer.cs" />
     <Compile Include="Constants\IndexConstants.cs" />
+    <Compile Include="Controllers\CrawlerController.cs" />
     <Compile Include="Controllers\DBController.cs" />
     <Compile Include="Controllers\IndexController.cs" />
     <Compile Include="Controllers\SearchController.cs" />

@@ -29,10 +29,10 @@ namespace JaccardSim.Controllers
             var score = 0d;
             foreach(var term in query)
             {
-                var occurance = doc.TokenOccurances.FirstOrDefault(to => to.Token.Content == term);
+                var occurance = doc.TokenOccurances.FirstOrDefault(to => to.Token.Word == term);
                 if (occurance != null)
                 {
-                    var df = db.Tokens.First(t => t.Content == term).Frequency;
+                    var df = db.Tokens.First(t => t.Word == term).Frequency;
                     var docCount = db.Documents.Count;
                     var tf = occurance.Frequency;
                     var ltf = 1 + Math.Log10(tf);
@@ -61,7 +61,7 @@ namespace JaccardSim.Controllers
             var queryLength = 0d;
             foreach (var term in query)
             {
-                var df = db.Tokens.First(t => t.Content == term).Frequency;
+                var df = db.Tokens.First(t => t.Word == term).Frequency;
                 var docCount = db.Documents.Count;
                 var idf = docCount / (double)df;
                 var lidf = Math.Log10(idf);
@@ -71,10 +71,10 @@ namespace JaccardSim.Controllers
 
             foreach(var term in query)
             {
-                var occurance = doc.TokenOccurances.FirstOrDefault(x => x.Token.Content == term);
+                var occurance = doc.TokenOccurances.FirstOrDefault(x => x.Token.Word == term);
                 if(occurance != null)
                 {
-                    var df = db.Tokens.First(t => t.Content == term).Frequency;
+                    var df = db.Tokens.First(t => t.Word == term).Frequency;
                     var docCount = db.Documents.Count;
                     var idf = docCount / (double)df;
                     var lidf = Math.Log10(idf);
@@ -103,7 +103,7 @@ namespace JaccardSim.Controllers
                 {
                     var token = Program.Stemmer.stem(and);
                     output += token + ",";
-                    matchedDocuments = matchedDocuments.Where(d => d.TokenOccurances.Exists(t => t.Token.Content.Equals(token))).ToList();
+                    matchedDocuments = matchedDocuments.Where(d => d.TokenOccurances.Exists(t => t.Token.Word.Equals(token))).ToList();
                 }
                 result = result.Union(matchedDocuments).ToList();
             }

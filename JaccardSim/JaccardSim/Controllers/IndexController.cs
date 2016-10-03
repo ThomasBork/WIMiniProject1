@@ -13,7 +13,6 @@ namespace JaccardSim.Controllers
 {
     public static class IndexController
     {
-        
         public static void Index()
         {
             using (SqlConnection myConnection = DBController.GetConnection())
@@ -50,7 +49,7 @@ namespace JaccardSim.Controllers
                 Token.Tokenize(document);
             }
 
-            var sortedTokens = Token.Tokens.Where(x => !IndexConstants.STOPWORDS.Contains(x.Content) && x.Content != "" && x.Content[0] != '[').OrderByDescending(x => x.TokenOccurances.Count);
+            var sortedTokens = Token.Tokens.Where(x => !IndexConstants.STOPWORDS.Contains(x.Word) && x.Word != "" && x.Word[0] != '[').OrderByDescending(x => x.TokenOccurances.Count);
 
             using (SqlCommand tokenCommand = myConnection.CreateCommand())
             using (SqlCommand tokenInfoCommand = myConnection.CreateCommand())
@@ -73,11 +72,11 @@ namespace JaccardSim.Controllers
 
                 foreach (var token in sortedTokens)
                 {
-                    tokenCommand.Parameters["@word"].Value = token.Content;
+                    tokenCommand.Parameters["@word"].Value = token.Word;
                     tokenCommand.Parameters["@frequency"].Value = token.TokenOccurances.Count;
                     tokenCommand.ExecuteNonQuery();
 
-                    tokenIdCommand.Parameters["@word"].Value = token.Content;
+                    tokenIdCommand.Parameters["@word"].Value = token.Word;
                     var reader = tokenIdCommand.ExecuteReader();
                     var tokenId = -1;
                     while (reader.Read())

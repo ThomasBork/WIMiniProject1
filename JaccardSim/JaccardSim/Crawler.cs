@@ -12,6 +12,7 @@ using JaccardSim.Models;
 using System.Data.Odbc;
 using System.Data.SqlClient;
 using System.Data;
+using JaccardSim.Controllers;
 
 namespace WebCrawler
 {
@@ -125,13 +126,13 @@ namespace WebCrawler
 
                             if (!urlToAdd.StartsWith("http://" + domain))
                             {
-                                Program.newDomains.Enqueue(urlToAdd);
+                                CrawlerController.NewDomains.Enqueue(urlToAdd);
                             }
                         }
 
-                        Monitor.Enter(Program.countMutex);
-                        Program.count++;
-                        Monitor.Exit(Program.countMutex);
+                        Monitor.Enter(CrawlerController.CountMutex);
+                        CrawlerController.Count++;
+                        Monitor.Exit(CrawlerController.CountMutex);
                     }
                     catch (WebException)
                     {
@@ -147,7 +148,7 @@ namespace WebCrawler
         {
             foreach (KeyValuePair<string, string> kvp in results)
             {
-                Program.combinedResults.TryAdd(kvp.Key, kvp.Value);
+                CrawlerController.CombinedResults.TryAdd(kvp.Key, kvp.Value);
             }
         }
 

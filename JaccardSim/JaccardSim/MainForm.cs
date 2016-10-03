@@ -42,5 +42,9 @@ namespace JaccardSim
                 txtSearchResult.Text += String.Format("{0:0.00}", doc.TempScore) + "URL: " + doc.Uri + Environment.NewLine;
             }
         }
+
+        private void btnCrawl_Click(object sender, EventArgs e)
+        {
+        }
     }
 }
