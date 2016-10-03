@@ -483,6 +483,7 @@ namespace JaccardSim.Libs
 
         public string stem(string word)
         {
+            word = word.Trim();
             if (word.Length < 3) return word;
 
             StringBuilder sb = new StringBuilder(word.ToLower());

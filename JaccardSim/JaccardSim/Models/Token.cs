@@ -11,7 +11,6 @@ namespace JaccardSim.Models
 {
     public class Token
     {
-        private static object tokenizeLock = new object();
         private static List<Token> _tokens = new List<Token>();
         public static List<Token> Tokens {
             get { return _tokens; }
@@ -19,12 +18,23 @@ namespace JaccardSim.Models
         }
 
         public string Content { get; set; }
-        public List<TokenInfo> Info { get; }
+        public List<TokenOccurance> TokenOccurances { get; set; }
+
+        public int ID { get; set; }
+        public int Frequency { get; set; }
 
         public Token(string content)
         {
             this.Content = content;
-            this.Info = new List<TokenInfo>();
+            this.TokenOccurances = new List<TokenOccurance>();
+        }
+
+        public Token(int id, string word, int frequency)
+        {
+            this.ID = id;
+            this.Content = word;
+            this.Frequency = frequency;
+            this.TokenOccurances = new List<TokenOccurance>();
         }
 
         public static void Tokenize (Document doc)
@@ -42,11 +52,11 @@ namespace JaccardSim.Models
                     token = new Token(word);
                     Tokens.Add(token);
                 }
-                var tokenInfo = token.Info.FirstOrDefault(x => x.Document == doc);
+                var tokenInfo = token.TokenOccurances.FirstOrDefault(x => x.Document == doc);
                 if(tokenInfo == null)
                 {
-                    tokenInfo = new TokenInfo(doc);
-                    token.Info.Add(tokenInfo);
+                    tokenInfo = new TokenOccurance(doc);
+                    token.TokenOccurances.Add(tokenInfo);
                 }
                 tokenInfo.Frequency++;
             }

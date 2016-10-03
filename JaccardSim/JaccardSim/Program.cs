@@ -33,12 +33,19 @@ namespace WebCrawler
         [STAThread]
         static void Main()
         {
-            Index();
+            Program.Stemmer = new Porter2();
+            StartForm();
+        }
+        
+        static void StartForm()
+        {
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new JaccardSim.MainForm());
         }
 
         static void Index()
         {
-            Program.Stemmer = new Porter2();
             IndexController.Index();
         }
 
